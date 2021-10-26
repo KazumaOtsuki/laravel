@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/calculator', function () {
-    return view('calculator');
-});
+Route::get('/calculator', 'CalculatorController@index');
+Route::get('/calculator/exec', 'CalculatorController@exec');
+Route::post('/calculator/exec', 'CalculatorController@exec');
+//Route::resource('calculator', 'CalculatorController');
