@@ -3,17 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 
 use App\Models\Employee;
 use App\Models\Department;
 use App\Models\Gender;
+use App\Models\Configure;
 
 use App\Http\Requests\EmployeeRequest;
 
 class EmployeeController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +24,7 @@ class EmployeeController extends Controller
         $employeeInstance = new Employee();
         $employees = $employeeInstance->getListResource();
         return view('employee.list')->with([
-            'employeeColumn' => Config::get('define.employeeColumn'),
+            'employeeColumn' => Configure::getEmployeeColumm(),
             'employees' => $employees,
         ]);
     }
@@ -49,7 +48,7 @@ class EmployeeController extends Controller
         $genders = $genderInstance->getListResource();
 
         return view('employee.create')->with([
-            'employeeColumn' => Config::get('define.employeeColumn'),
+            'employeeColumn' => Configure::getEmployeeColumm(),
             'departments' => $departments,
             'genders' => $genders,
             'employeeCode' => null,
@@ -87,7 +86,7 @@ class EmployeeController extends Controller
         $employee = $employeeClass->getSpecifiedResource($id);
 
         return view('employee.show')->with([
-            'employeeColumn' => Config::get('define.employeeColumn'),
+            'employeeColumn' => Configure::getEmployeeColumm(),
             'employee' => $employee,
         ]);
     }
