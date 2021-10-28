@@ -4,11 +4,11 @@
     <a href="{{ route('employee.create') }}">新規登録</a>
     <table>
         <tr>
-            <th>ID</th>
-            <th>社員番号</th>
-            <th>社員名</th>
-            <th>部署名</th>
-            <th>性別</th>
+            <th>{{ $employeeColumn['employee_id'] }}</th>
+            <th>{{ $employeeColumn['employee_code'] }}</th>
+            <th>{{ $employeeColumn['employee_name'] }}</th>
+            <th>{{ $employeeColumn['department_id'] }}</th>
+            <th>{{ $employeeColumn['gender_id'] }}</th>
             <th></th>
         </tr>
         @foreach ($employees as $employee)

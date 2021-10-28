@@ -3,23 +3,23 @@
 @section('content')
     <table>
         <tr>
-            <td>ID</td>
+            <th>{{ $employeeColumn['employee_id'] }}</th>
             <td>{{ $employee->employee_id }}</td>
         </tr>
         <tr>
-            <th>社員番号</th>
+            <th>{{ $employeeColumn['employee_code'] }}</th>
             <td>{{ $employee->employee_code }}</td>
         </tr>
         <tr>
-            <th>社員名</th>
+            <th>{{ $employeeColumn['employee_name'] }}</th>
             <td>{{ $employee->employee_name }}</td>
         </tr>
         <tr>
-            <th>部署名</th>
+            <th>{{ $employeeColumn['department_id'] }}</th>
             <td>{{ $employee->department_name }}</td>
         </tr>
         <tr>
-            <th>性別</th>
+            <th>{{ $employeeColumn['gender_id'] }}</th>
             <td>{{ $employee->gender_name }}</td>
         </tr>
     </table>

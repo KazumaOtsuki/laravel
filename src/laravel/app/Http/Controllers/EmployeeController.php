@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
 use App\Models\Employee;
+use App\Models\Department;
+use App\Models\Gender;
 
+use App\Http\Requests\EmployeeRequest;
 
 class EmployeeController extends Controller
 {
@@ -18,10 +22,10 @@ class EmployeeController extends Controller
     public function list()
     {
         //一覧画面
-        $employeeClass = new Employee();
-        $employees = $employeeClass->getListResource();
-
+        $employeeInstance = new Employee();
+        $employees = $employeeInstance->getListResource();
         return view('employee.list')->with([
+            'employeeColumn' => Config::get('define.employeeColumn'),
             'employees' => $employees,
         ]);
     }
@@ -33,8 +37,26 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
-        echo '登録画面だよ！';
+        //登録画面
+        $departmentInstance = new Department();
+        $genderInstance = new Gender();
+
+        $_departments = $departmentInstance->getListResource();
+        $departments = [];
+        foreach($_departments as $d){
+            $departments[$d->department_id] = $d->department_name;
+        }
+        $genders = $genderInstance->getListResource();
+
+        return view('employee.create')->with([
+            'employeeColumn' => Config::get('define.employeeColumn'),
+            'departments' => $departments,
+            'genders' => $genders,
+            'employeeCode' => null,
+            'employeeName' => null,
+            'departmentId' => null,
+        ]);
+
     }
 
     /**
@@ -43,15 +65,18 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmployeeRequest $request)
     {
         //
         echo '登録するよ！';
+        $employeeInstance = new Employee();
+        $employees = $employeeInstance->saveResource($request);
     }
 
     /**
      * Display the specified resource.
-     *
+     *t 
+
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -62,6 +87,7 @@ class EmployeeController extends Controller
         $employee = $employeeClass->getSpecifiedResource($id);
 
         return view('employee.show')->with([
+            'employeeColumn' => Config::get('define.employeeColumn'),
             'employee' => $employee,
         ]);
     }
