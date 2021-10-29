@@ -29,8 +29,7 @@ class Employee extends Model
                 ->get();
             return $employees;
         } catch (\Exception $e) {
-            echo $e->getMessage();
-            $this->error->redirect500();
+            $this->error->redirect500($e);
         }
     }
 
@@ -45,8 +44,7 @@ class Employee extends Model
                 ->first();
             return $employee;
         } catch (\Exception $e) {
-            echo $e->getMessage();
-            $this->error->redirect500();
+            $this->error->redirect500($e);
         }
     }
 
@@ -66,8 +64,28 @@ class Employee extends Model
                     'updated_at' => $now,
                 ]);
         } catch (\Exception $e) {
-            echo $e->getMessage();
-            $this->error->redirect500();
+            $this->error->redirect500($e);
+        }
+    }
+
+    //社員情報を更新する
+    public function updateResource($request,$id)
+    {
+        try{
+            $now = now();
+
+            $employees = $this->employees
+                ->where('employee_id', $id)
+                ->update([
+                    'employee_code' => $request->employee_code,
+                    'employee_name' => $request->employee_name,
+                    'department_id' => $request->department_id,
+                    'gender_id' => $request->gender_id,
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ]);
+        } catch (\Exception $e) {
+            $this->error->redirect500($e);
         }
     }
 

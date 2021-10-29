@@ -25,8 +25,8 @@ class EmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'employee_code' => 'required',
-            'employee_name' => 'required',
+            'employee_code' => 'required|max:10',
+            'employee_name' => 'required|max:100',
             'department_id' => 'required',
             'gender_id' => 'required',
         ];
@@ -35,6 +35,7 @@ class EmployeeRequest extends FormRequest
     {
         return [
             'required' => ':attributeは必須です',
+            'max' => ':attributeは:max文字以内にしてください',
         ];
     }
 

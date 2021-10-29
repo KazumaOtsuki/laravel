@@ -40,22 +40,20 @@ class EmployeeController extends Controller
         $departmentInstance = new Department();
         $genderInstance = new Gender();
 
-        $_departments = $departmentInstance->getListResource();
-        $departments = [];
-        foreach($_departments as $d){
-            $departments[$d->department_id] = $d->department_name;
-        }
+        $departments = $departmentInstance->getListResource();
+        $departments= $departments->pluck('department_name','department_id');
         $genders = $genderInstance->getListResource();
 
-        return view('employee.create')->with([
+        return view('employee.input')->with([
+            'formUrl' => '/employee/store', 
             'employeeColumn' => Configure::getEmployeeColumm(),
             'departments' => $departments,
             'genders' => $genders,
             'employeeCode' => null,
             'employeeName' => null,
             'departmentId' => null,
+            'genderId' => null,
         ]);
-
     }
 
     /**
@@ -99,8 +97,26 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        //
-        echo '編集画面だよ！';
+        //編集画面だよ！
+        $employeeClass = new Employee();
+        $departmentInstance = new Department();
+        $genderInstance = new Gender();
+
+        $employee = $employeeClass->getSpecifiedResource($id);
+        $departments = $departmentInstance->getListResource();
+        $departments= $departments->pluck('department_name','department_id');
+        $genders = $genderInstance->getListResource();
+
+        return view('employee.input')->with([
+            'formUrl' => '/employee/update/'.$id, 
+            'employeeColumn' => Configure::getEmployeeColumm(),
+            'departments' => $departments,
+            'genders' => $genders,
+            'employeeCode' => $employee->employee_code,
+            'employeeName' => $employee->employee_name,
+            'departmentId' => $employee->department_id,
+            'genderId' => $employee->gender_id,
+        ]);
     }
 
     /**
@@ -110,10 +126,11 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EmployeeRequest $request, $id)
     {
-        //
-        echo '更新するよ！';
+        //更新
+        $employeeInstance = new Employee();
+        $employees = $employeeInstance->updateResource($request,$id);
     }
 
     /**
@@ -126,5 +143,17 @@ class EmployeeController extends Controller
     {
         //
         echo '削除するよ！';
+    }
+
+    /**
+     * Complete.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function complete()
+    {
+        //
+        echo '完了したよ！';
     }
 }

@@ -26,8 +26,7 @@ class Gender extends Model
                 ->get();
             return $genders;
         } catch (\Exception $e) {
-            echo $e->getMessage();
-            $this->error->redirect500();
+            $this->error->redirect500($e);
         }
     }
 }

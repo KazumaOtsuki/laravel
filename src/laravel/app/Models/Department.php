@@ -26,8 +26,7 @@ class Department extends Model
                 ->get();
             return $departments;
         } catch (\Exception $e) {
-            echo $e->getMessage();
-            $this->error->redirect500();
+            $this->error->redirect500($e);
         }
     }
 }

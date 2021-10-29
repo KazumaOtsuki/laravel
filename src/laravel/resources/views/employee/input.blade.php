@@ -1,8 +1,8 @@
 @extends('layouts.layout')
 @section('title', '詳細')
 @section('content')
-    {{Form::open(['url' => '/employee/store'])}}
-        <table>
+    {{Form::open(['url' => $formUrl])}}
+    <table>
             <tr>
                 <th>{{ $employeeColumn['employee_code'] }}</th>            
                 <td>
@@ -34,7 +34,11 @@
                 <th>{{ $employeeColumn['gender_id'] }}</th>
                 <td>
                     @foreach ($genders as $g)
-                    {{Form::radio('gender_id', $g->gender_id, false, [
+                    @php
+                        //初期値
+                        $isSelectInit = ($genderId === $g->gender_id) ? TRUE : FALSE;
+                    @endphp
+                    {{Form::radio('gender_id', $g->gender_id, $isSelectInit, [
                         'id'=>'genders',
                         'class'=>'custom-control-input',
                     ])}}
