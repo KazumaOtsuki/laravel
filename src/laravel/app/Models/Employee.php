@@ -89,4 +89,14 @@ class Employee extends Model
         }
     }
 
+    //社員情報を削除する
+    public function destroyResource($id){
+        try{
+            $employees = $this->employees
+                ->where('employee_id', $id)
+                ->delete();
+        } catch (\Exception $e) {
+            $this->error->redirect500($e);
+        }
+    }
 }

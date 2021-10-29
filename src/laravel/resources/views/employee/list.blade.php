@@ -24,7 +24,7 @@
             <td>{{ $employee->gender_name }}</td>
             <td>
                 <a href="{{ route('employee.edit', ['employee_id'=> $employee->employee_id ]) }}">編集</a>
-                <a href="{{ route('employee.destroy', ['employee_id'=> $employee->employee_id ]) }}">削除</a>
+                <a href="{{ route('employee.confirm', ['employee_id'=> $employee->employee_id ]) }}">削除</a>
             </td>
         </tr>
         @endforeach

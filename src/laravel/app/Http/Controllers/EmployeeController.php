@@ -64,10 +64,10 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeRequest $request)
     {
-        //
-        echo '登録するよ！';
+        //登録画面
         $employeeInstance = new Employee();
         $employees = $employeeInstance->saveResource($request);
+        return redirect('/employee/complete');
     }
 
     /**
@@ -131,7 +131,28 @@ class EmployeeController extends Controller
         //更新
         $employeeInstance = new Employee();
         $employees = $employeeInstance->updateResource($request,$id);
+        return redirect('/employee/complete');
     }
+
+    /**
+     * Confirm the specified resource.
+     *t 
+
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function confirm($id){
+        //確認画面
+        $employeeClass = new Employee();
+        $employee = $employeeClass->getSpecifiedResource($id);
+
+        return view('employee.confirm')->with([
+            'formUrl' => '/employee/destroy/'.$id,
+            'employeeColumn' => Configure::getEmployeeColumm(),
+            'employee' => $employee,
+        ]);
+    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -141,19 +162,23 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
-        echo '削除するよ！';
+        //削除画面
+        $employeeInstance = new Employee();
+        $employees = $employeeInstance->destroyResource($id);
+        return redirect('/employee/complete');
     }
 
     /**
      * Complete.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function complete()
+    public function complete(Request $request)
     {
-        //
-        echo '完了したよ！';
+        //完了画面
+        // 二重送信対策
+        $request->session()->regenerateToken();
+        return view('employee.complete');
     }
 }
