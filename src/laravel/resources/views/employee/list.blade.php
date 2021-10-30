@@ -1,32 +1,39 @@
 @extends('layouts.layout')
 @section('title', '一覧')
 @section('content')
-    <a href="{{ route('employee.create') }}">新規登録</a>
-    <table>
-        <tr>
-            <th>{{ $employeeColumn['employee_id'] }}</th>
-            <th>{{ $employeeColumn['employee_code'] }}</th>
-            <th>{{ $employeeColumn['employee_name'] }}</th>
-            <th>{{ $employeeColumn['department_id'] }}</th>
-            <th>{{ $employeeColumn['gender_id'] }}</th>
-            <th></th>
-        </tr>
-        @foreach ($employees as $employee)
-        <tr>
-            <td>{{ $employee->employee_id }}</td>
-            <td>
-                <a href="{{ route('employee.show', ['employee_id'=> $employee->employee_id ]) }}">
-                    {{ $employee->employee_code }}
-                </a>
-            </td>
-            <td>{{ $employee->employee_name }}</td>
-            <td>{{ $employee->department_name }}</td>
-            <td>{{ $employee->gender_name }}</td>
-            <td>
-                <a href="{{ route('employee.edit', ['employee_id'=> $employee->employee_id ]) }}">編集</a>
-                <a href="{{ route('employee.confirm', ['employee_id'=> $employee->employee_id ]) }}">削除</a>
-            </td>
-        </tr>
-        @endforeach
+    <div class="float-right">
+        <a href="{{ route('employee.create') }}" class="btn btn-primary">新規登録</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">{{ $employeeColumn['employee_id'] }}</th>
+                <th scope="col">{{ $employeeColumn['employee_code'] }}</th>
+                <th scope="col">{{ $employeeColumn['employee_name'] }}</th>
+                <th scope="col">{{ $employeeColumn['department_id'] }}</th>
+                <th scope="col">{{ $employeeColumn['gender_id'] }}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($employees as $employee)
+            <tr>
+                <td>{{ $employee->employee_id }}</td>
+                <td>
+                    <a href="{{ route('employee.show', ['employee_id'=> $employee->employee_id ]) }}">
+                        {{ $employee->employee_code }}
+                    </a>
+                </td>
+                <td>{{ $employee->employee_name }}</td>
+                <td>{{ $employee->department_name }}</td>
+                <td>{{ $employee->gender_name }}</td>
+                <td>
+                    <a href="{{ route('employee.edit', ['employee_id'=> $employee->employee_id ]) }}">編集</a>
+                    <a href="{{ route('employee.confirm', ['employee_id'=> $employee->employee_id ]) }}">削除</a>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
     </table>
+    {{ $employees->links() }}
 @endsection

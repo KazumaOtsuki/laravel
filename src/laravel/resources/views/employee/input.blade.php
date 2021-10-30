@@ -1,66 +1,73 @@
 @extends('layouts.layout')
 @section('title', '詳細')
 @section('content')
+    @if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $e)
+            <li>{{$e}}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     {{Form::open(['url' => $formUrl])}}
-    <table>
+    <table class="table">
             <tr>
-                <th>{{ $employeeColumn['employee_code'] }}</th>            
+                <th scope="row">{{ $employeeColumn['employee_code'] }}</th>            
                 <td>
                     {{Form::text('employee_code',$employeeCode,[
                         'id' => 'employeeCode',
-                        'class' => 'employee-code'
+                        'class' => ['employee-code','form-control']
                     ])}}
                 </td>
             </tr>
             <tr>
-                <th>{{ $employeeColumn['employee_name'] }}</th>
+                <th scope="row">{{ $employeeColumn['employee_name'] }}</th>
                 <td>
                     {{Form::text('employee_name',$employeeName,[
                         'id' => 'employeeName',
-                        'class' => 'employee-name'
+                        'class' => ['employee-name','form-control']
                     ])}}
                 </td>
             </tr>
             <tr>
-                <th>{{ $employeeColumn['department_id'] }}</th>
+                <th scope="row">{{ $employeeColumn['department_id'] }}</th>
                 <td>
                     {{Form::select('department_id',$departments,$departmentId,[
                         'id' => 'departments',
-                        'class' => 'departments'    
+                        'class' => ['departments','form-select'],
                     ])}}
                 </td>
             </tr>
             <tr>
-                <th>{{ $employeeColumn['gender_id'] }}</th>
+                <th scope="row">{{ $employeeColumn['gender_id'] }}</th>
                 <td>
                     @foreach ($genders as $g)
-                    @php
-                        //初期値
-                        $isSelectInit = ($genderId === $g->gender_id) ? TRUE : FALSE;
-                    @endphp
-                    {{Form::radio('gender_id', $g->gender_id, $isSelectInit, [
-                        'id'=>'genders',
-                        'class'=>'custom-control-input',
-                    ])}}
-                    {{ $g->gender_name }}
+                    <div class="form-check">
+                        @php
+                            //初期値
+                            $isSelectInit = ($genderId === $g->gender_id) ? TRUE : FALSE;
+                        @endphp
+                        {{Form::radio('gender_id', $g->gender_id, $isSelectInit, [
+                            'id'=>'genders'. $g->gender_id,
+                            'class'=>'form-check-input',
+                        ])}}
+                        <label class="form-check-label" for="{{ 'genders'.$g->gender_id }}">
+                            {{ $g->gender_name }}
+                        </label>
+                    </div>
                     @endforeach
                 </td>
             </tr>
         </table>
-        {{Form::submit('登録',[
-            'id' => 'calculationBtn',
-            'class' => 'calculation-btn',    
-        ])}}
-        <a href="{{ route('employee.list') }}">戻る</a>
-                
-        @if($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $e)
-                <li>{{$e}}</li>
-                @endforeach
-            </ul>
+        <div class='btn-toolbar' role="toolbar">
+            <div>
+                {{Form::submit('登録',[
+                    'id' => 'submitBtn',
+                    'class' => ['btn', 'btn-primary'],
+                ])}}
+                <a href="{{ route('employee.list') }}" class="btn btn-primary">戻る</a>
+            </div>
         </div>
-        @endif
     {{Form::close()}}
 @endsection

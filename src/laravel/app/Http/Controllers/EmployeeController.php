@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 use App\Models\Employee;
 use App\Models\Department;
 use App\Models\Gender;
 use App\Models\Configure;
-
 use App\Http\Requests\EmployeeRequest;
 
 class EmployeeController extends Controller

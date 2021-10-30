@@ -9,5 +9,9 @@
         @slot('departmentName', $employee->department_name)
         @slot('genderName', $employee->gender_name)
     @endcomponent
-    <a href="{{ route('employee.list') }}">戻る</a>
+    <div class='btn-toolbar' role="toolbar">
+        <div>
+            <a href="{{ route('employee.list') }}" class="btn btn-primary">戻る</a>
+        </div>
+    </div>
 @endsection

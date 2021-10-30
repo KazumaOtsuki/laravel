@@ -26,7 +26,7 @@ class Employee extends Model
                 ->leftJoin('departments', 'employees.department_id', '=', 'departments.department_id')
                 ->leftJoin('genders', 'employees.gender_id', '=', 'genders.gender_id')
                 ->orderByRaw('employee_id')
-                ->get();
+                ->paginate(10);
             return $employees;
         } catch (\Exception $e) {
             $this->error->redirect500($e);
