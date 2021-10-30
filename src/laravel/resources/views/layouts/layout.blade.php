@@ -9,16 +9,20 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        
+        <style>
+            .container-m{
+                margin-top: 16px;
+            }
+        </style>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            <nav class="navbar navbar-light bg-light">
+            <nav class="navbar navbar-dark bg-primary"">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">社員管理システム</a>
                 </div>
             </nav>
-            <div class="container">
+            <div class="container container-m">
                 @yield('content')
             </div>
         </div>
