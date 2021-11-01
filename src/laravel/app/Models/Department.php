@@ -3,18 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
 use App\Models\Error;
 
 class Department extends Model
 {
-    protected $departments;
     protected $error;
 
     public function __construct(){
-        $this->departments = DB::table('departments');
-
         $this->error = new Error();
     }
 
@@ -22,8 +18,7 @@ class Department extends Model
     public function getListResource()
     {
         try{
-            $departments = $this->departments
-                ->get();
+            $departments = Department::get();
             return $departments;
         } catch (\Exception $e) {
             $this->error->redirect500($e);
