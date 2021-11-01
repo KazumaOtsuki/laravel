@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('title', '確認')
 @section('content')
-    {{Form::open(['url' => $formUrl])}}
+    {{Form::open(['url' => '/employee/destroy/'.$id])}}
         @component('components.employee_table')
             @slot('employeeColumn', $employeeColumn)
             @slot('employeeId', $employee->employee_id)

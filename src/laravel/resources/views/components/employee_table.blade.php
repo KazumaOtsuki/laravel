@@ -1,23 +1,23 @@
 <table class="table">
     <tbody>
         <tr>
-            <th>{{ $employeeColumn['employee_id'] }}</th>
+            <th scope="row">{{ $employeeColumn['employee_id'] }}</th>
             <td>{{ $employeeId }}</td>
         </tr>
         <tr>
-            <th>{{ $employeeColumn['employee_code'] }}</th>
+            <th scope="row">{{ $employeeColumn['employee_code'] }}</th>
             <td>{{ $employeeCode }}</td>
         </tr>
         <tr>
-            <th>{{ $employeeColumn['employee_name'] }}</th>
+            <th scope="row">{{ $employeeColumn['employee_name'] }}</th>
             <td>{{ $employeeName }}</td>
         </tr>
         <tr>
-            <th>{{ $employeeColumn['department_id'] }}</th>
+            <th scope="row">{{ $employeeColumn['department_id'] }}</th>
             <td>{{ $departmentName }}</td>
         </tr>
         <tr>
-            <th>{{ $employeeColumn['gender_id'] }}</th>
+            <th scope="row">{{ $employeeColumn['gender_id'] }}</th>
             <td>{{ $genderName }}</td>
         </tr>
     </tbody>

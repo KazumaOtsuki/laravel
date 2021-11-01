@@ -44,8 +44,7 @@ class EmployeeController extends Controller
         $departments= $departments->pluck('department_name','department_id');
         $genders = $genderInstance->getListResource();
 
-        return view('employee.input')->with([
-            'formUrl' => '/employee/store', 
+        return view('employee.create')->with([
             'employeeColumn' => Configure::getEmployeeColumm(),
             'departments' => $departments,
             'genders' => $genders,
@@ -107,8 +106,8 @@ class EmployeeController extends Controller
         $departments= $departments->pluck('department_name','department_id');
         $genders = $genderInstance->getListResource();
 
-        return view('employee.input')->with([
-            'formUrl' => '/employee/update/'.$id, 
+        return view('employee.edit')->with([
+            'id' => $id,
             'employeeColumn' => Configure::getEmployeeColumm(),
             'departments' => $departments,
             'genders' => $genders,
@@ -147,7 +146,7 @@ class EmployeeController extends Controller
         $employee = $employeeClass->getSpecifiedResource($id);
 
         return view('employee.confirm')->with([
-            'formUrl' => '/employee/destroy/'.$id,
+            'id' => $id,
             'employeeColumn' => Configure::getEmployeeColumm(),
             'employee' => $employee,
         ]);
