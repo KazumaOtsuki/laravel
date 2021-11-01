@@ -7,11 +7,11 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">{{ $employeeColumn['employee_id'] }}</th>
-                <th scope="col">{{ $employeeColumn['employee_code'] }}</th>
-                <th scope="col">{{ $employeeColumn['employee_name'] }}</th>
-                <th scope="col">{{ $employeeColumn['department_id'] }}</th>
-                <th scope="col">{{ $employeeColumn['gender_id'] }}</th>
+                <th scope="col">@sortablelink('employee_id', $employeeColumn['employee_id'])</th>
+                <th scope="col">@sortablelink('employee_code', $employeeColumn['employee_code'])</th>
+                <th scope="col">@sortablelink('employee_name', $employeeColumn['employee_name'])</th>
+                <th scope="col">@sortablelink('department_id', $employeeColumn['department_id'])</th>
+                <th scope="col">@sortablelink('gender_id', $employeeColumn['gender_id'])</th>
                 <th></th>
             </tr>
         </thead>
@@ -35,5 +35,5 @@
             @endforeach
         </tbody>
     </table>
-    {{ $employees->links() }}
+    {{ $employees->appends(request()->query())->links() }}
 @endsection

@@ -7,8 +7,13 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Error;
 
+use Kyslik\ColumnSortable\Sortable;
+
 class Employee extends Model
 {
+
+    use Sortable;
+    public $sortable = ['employee_id', 'employee_code', 'employee_name', 'department_id', 'gender_id'];
     protected $employees;
     protected $error;
     
@@ -22,11 +27,20 @@ class Employee extends Model
     public function getListResource()
     {
         try{
-            $employees = $this->employees
-                ->leftJoin('departments', 'employees.department_id', '=', 'departments.department_id')
-                ->leftJoin('genders', 'employees.gender_id', '=', 'genders.gender_id')
-                ->orderByRaw('employee_id')
-                ->paginate(10);
+            $employees = Employee::select([
+                'employees.employee_id',
+                'employees.employee_code',
+                'employees.employee_name',
+                'employees.department_id',
+                'departments.department_name',
+                'employees.gender_id',
+                'genders.gender_name',
+            ])
+            ->leftJoin('departments', 'employees.department_id', '=', 'departments.department_id')
+            ->leftJoin('genders', 'employees.gender_id', '=', 'genders.gender_id')
+            ->sortable()
+            ->orderBy('employees.employee_id', 'asc')
+            ->paginate(10);
             return $employees;
         } catch (\Exception $e) {
             $this->error->redirect500($e);
