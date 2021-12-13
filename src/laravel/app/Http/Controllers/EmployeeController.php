@@ -23,7 +23,16 @@ class EmployeeController extends Controller
         //一覧画面
         $employeeInstance = new Employee();
         $employees = $employeeInstance->getListResource();
-        return view('employee.list')->with([
+	/**test**/
+	/**test**/
+	/**test**/
+	/**test**/
+	/**test**/
+	/**test**/
+	/**test**/
+	/**test**/
+	/**test**/
+	return view('employee.list')->with([
             'employeeColumn' => Configure::getEmployeeColumm(),
             'employees' => $employees,
         ]);
@@ -39,6 +48,7 @@ class EmployeeController extends Controller
         //登録画面
         $departmentInstance = new Department();
         $genderInstance = new Gender();
+
 
         $departments = $departmentInstance->getListResource();
         $departments= $departments->pluck('department_name','department_id');
