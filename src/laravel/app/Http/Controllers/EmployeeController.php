@@ -23,15 +23,6 @@ class EmployeeController extends Controller
         //一覧画面
         $employeeInstance = new Employee();
         $employees = $employeeInstance->getListResource();
-	/**test**/
-	/**test**/
-	/**test**/
-	/**test**/
-	/**test**/
-	/**test**/
-	/**test**/
-	/**test**/
-	/**test**/
 	return view('employee.list')->with([
             'employeeColumn' => Configure::getEmployeeColumm(),
             'employees' => $employees,
